@@ -16,18 +16,18 @@ def readData(paths=[], xLabelText=str(), yLabelText=str()):
         xArray = []
         yArray = []
         lineNumber = int()
-        print(eachElement)
+        print(("File " + eachElement))
         sourceFile = open(eachElement, "r")
         for eachLine in sourceFile:
             lineNumber += 1
-            print(eachLine)
+            print(("Line " + str(lineNumber) + " : " + eachLine))
             if((lineNumber == 6) and (firstOpen == True)):
                 lineArray = eachLine.split("\t")
                 plt.xlabel(xLabelText + " [" + lineArray[0] + "]")
                 plt.ylabel(yLabelText + " [" + lineArray[1] + "]")
             if(lineNumber >= 8):
                 lineArray = eachLine.split("\t")
-                print ((lineArray[0] + " => " + lineArray[1]))
+                print (("Arrays: " + lineArray[0] + " => " + lineArray[1]))
                 xArray.append(lineArray[0])
                 yArray.append(lineArray[1])
         dataArray.append(xArray)
