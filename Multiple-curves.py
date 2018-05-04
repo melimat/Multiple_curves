@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 
+global pathsToFiles
 pathsToFiles = []
 pathsToFiles.append("/home/melimat/Downloads/Tusla-Slama.txt")
 pathsToFiles.append("/home/melimat/Downloads/Trefny.txt")
@@ -36,9 +37,14 @@ def readData(paths=[], xLabelText=str(), yLabelText=str()):
 
 
 def plotData():
+    global pathsToFiles
     array = readData(pathsToFiles, xLabelText, yLabelText)
-    plt.plot(array[0], array[1], label="Source: Tusla-Slama.txt")
-    plt.plot(array[2], array[3], label="Source: Trefny.txt")
+    label1 = pathsToFiles[0].split("/")
+    label1text = label1[4]
+    label2 = pathsToFiles[1].split("/")
+    label2text = label2[4]
+    plt.plot(array[0], array[1], label="Source: " + label1text)
+    plt.plot(array[2], array[3], label="Source: " + label2text)
     plt.legend()
     plt.show()
 
