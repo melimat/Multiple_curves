@@ -34,6 +34,7 @@ def readData(paths=[], xLabelText=str(), yLabelText=str()):
                 yArray.append(lineArray[1])
         dataArray.append(xArray)
         dataArray.append(yArray)
+        firstOpen = False
     return (dataArray)
 
 
