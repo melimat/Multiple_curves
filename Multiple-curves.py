@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 
+
 global pathsToFiles
 pathsToFiles = []
-pathsToFiles.append("/home/melimat/Downloads/Tusla-Slama.txt")
-pathsToFiles.append("/home/melimat/Downloads/Trefny.txt")
+
+def getInput():
+    numberOfInputFiles = int(input("How many files you want to visualize?: "))
+    for i in range(numberOfInputFiles):
+        fileNumber = str(i + 1)
+        print((fileNumber + ". file to open(path to file)?: "))
+        filePath = str(input())
+        pathsToFiles.append(filePath)
+    return(pathsToFiles)
+
+
+#pathsToFiles.append("/home/melimat/Downloads/Tusla-Slama.txt")
+#pathsToFiles.append("/home/melimat/Downloads/Trefny.txt")
 
 labelText = "Graph of oncentration of CO2"
 xLabelText = "Time"
@@ -50,5 +62,6 @@ def plotData():
     plt.legend()
     plt.show()
 
+getInput()
 plotData()
 #readData(pathsToFiles)
