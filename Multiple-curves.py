@@ -6,6 +6,7 @@ pathsToFiles = []
 pathsToFiles.append("/home/melimat/Downloads/Tusla-Slama.txt")
 pathsToFiles.append("/home/melimat/Downloads/Trefny.txt")
 
+labelText = "Graph of oncentration of CO2"
 xLabelText = "Time"
 yLabelText = "Concentration of CO2"
 
@@ -37,12 +38,12 @@ def readData(paths=[], xLabelText=str(), yLabelText=str()):
 
 
 def plotData():
-    global pathsToFiles
     array = readData(pathsToFiles, xLabelText, yLabelText)
     label1 = pathsToFiles[0].split("/")
     label1text = label1[4]
     label2 = pathsToFiles[1].split("/")
     label2text = label2[4]
+    plt.title(labelText)
     plt.plot(array[0], array[1], label="Source: " + label1text)
     plt.plot(array[2], array[3], label="Source: " + label2text)
     plt.legend()
