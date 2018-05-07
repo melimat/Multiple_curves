@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 global pathsToFiles
 pathsToFiles = []
 
+
 def getInput():
     numberOfInputFiles = int(input("How many files you want to visualize?: "))
     for i in range(numberOfInputFiles):
