@@ -11,6 +11,29 @@ class getInput:
             pathsArray.append(path)
         return(pathsArray)
 
+    def title(self):
+        titleText = str(input("Title of graph?: "))
+        return titleText
+
+    def labelsText(self):
+        labelsTextArray = []
+        xLabelText = str(input("Here type label text for X axis: "))
+        yLabelText = str(input("Here type label text for Y axis: "))
+        labelsTextArray.append(xLabelText)
+        labelsTextArray.append(yLabelText)
+        return(labelsTextArray)
+
+    def splitter(self):
+        splitterChar = str(input("Here type splitting character used in source files: "))
+        return (splitterChar)
+
+    def dataStart(self):
+        dataStartingLine = int(input("Here type on which are your data starting: "))
+        return(dataStartingLine)
+
+    def labelsRow(self):
+        labelsLine = int(input("Here type on which line you have your units: "))
+        return(labelsLine)
 
 class processData:
     def parseValues(self, path=str(), splitter=str(), dataStart=int()):
@@ -45,28 +68,39 @@ class processData:
 
 
 def plotResults():
+
     inp = getInput()
     data = processData()
     paths = inp.readInput()
     generalArray = []
+    title = inp.title()
+    labelsArray = inp.labelsText()
+    xLabel = labelsArray[0]
+    yLabel = labelsArray[1]
+    splitter = inp.splitter()
+    dataStart = inp.dataStart()
+    unitRow = inp.labelsRow()
+
     firstOpened = bool(True)
+
     for eachElement in paths:
-        dataArray = data.parseValues(eachElement, "\t", 8)
+        dataArray = data.parseValues(eachElement, splitter, dataStart)
         generalArray.append(dataArray)
         if (firstOpened == True):
-            labelsArray = data.labels(eachElement, "Time", "CO2 Concentration", 6 ,"\t")
+            labelsArray = data.labels(eachElement, xLabel, yLabel, unitRow, splitter)
             plt.xlabel(labelsArray[0])
             plt.ylabel(labelsArray[1])
-    i=int(0)
-    j=int(0)
+            firstOpened = False
+
+    i = int(0)
+    j = int(0)
     while(i < len(generalArray)):
         dataArray = generalArray[i]
         xArray = dataArray[j]
-        yArray = dataArray[j+1]
+        yArray = dataArray[j + 1]
         plt.plot(xArray, yArray)
         i += 1
-    plt.title("Graph of concentrtion of CO2")
+
+    plt.title(title)
     plt.show()
-
 plotResults()
-
