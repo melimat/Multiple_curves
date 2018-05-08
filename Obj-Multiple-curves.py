@@ -98,9 +98,13 @@ def plotResults():
         dataArray = generalArray[i]
         xArray = dataArray[j]
         yArray = dataArray[j + 1]
-        plt.plot(xArray, yArray)
+        pathStr = paths[i]
+        labelArray = (pathStr.split("/"))
+        labelText = labelArray[len(labelArray) - 1]
+        plt.plot(xArray, yArray, label = ("Source: " + labelText))
         i += 1
 
     plt.title(title)
+    plt.legend()
     plt.show()
 plotResults()
