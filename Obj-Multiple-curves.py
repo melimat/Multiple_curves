@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 
+global pathsArray
+pathsArray = []
+
 class getInput:
     def readInput(self):
-        pathsArray = []
         numberOfFiles = int(input("How many files you want to visualize?: "))
         for i in range(numberOfFiles):
             print((str(i + 1) + "." + " file path: "))
@@ -66,6 +68,12 @@ class processData:
                 labelArray = [XLabel, YLabel]
         return (labelArray)
 
+    def nameOfFile(self, i):
+        pathStr = pathsArray[i]
+        pathArray = pathStr.split("/")
+        name = pathArray[len(pathArray) - 1]
+        return (name)
+
 
 def plotResults():
 
@@ -98,10 +106,8 @@ def plotResults():
         dataArray = generalArray[i]
         xArray = dataArray[j]
         yArray = dataArray[j + 1]
-        pathStr = paths[i]
-        labelArray = (pathStr.split("/"))
-        labelText = labelArray[len(labelArray) - 1]
-        plt.plot(xArray, yArray, label = ("Source: " + labelText))
+        name = data.nameOfFile(i)
+        plt.plot(xArray, yArray, label = ("Source: " + name))
         i += 1
 
     plt.title(title)
