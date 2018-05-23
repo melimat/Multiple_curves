@@ -2,46 +2,13 @@
 import matplotlib.pyplot as plt
 
 
-class getInput:
-    def readInput(self):
-        numberOfFiles = int(input("How many files you want to visualize?: "))
-        for i in range(numberOfFiles):
-            print((str(i + 1) + "." + " file path: "))
-            path = str(input())
-            pathsArray.append(path)
-        return(pathsArray)
-
-    def title(self):
-        titleText = str(input("Title of graph?: "))
-        return titleText
-
-    def labelsText(self):
-        labelsTextArray = []
-        xLabelText = str(input("Here type label text for X axis: "))
-        yLabelText = str(input("Here type label text for Y axis: "))
-        labelsTextArray.append(xLabelText)
-        labelsTextArray.append(yLabelText)
-        return(labelsTextArray)
-
-    def splitter(self):
-        splitterChar = str(input("Here type splitting character used in source files: "))
-        return (splitterChar)
-
-    def dataStart(self):
-        dataStartingLine = int(input("Here type on which are your data starting: "))
-        return(dataStartingLine)
-
-    def labelsRow(self):
-        labelsLine = int(input("Here type on which line you have your units: "))
-        return(labelsLine)
-
 class processData:
     def __init__(self, splitter):
         self.splitter = splitter
         self.pathsToFiles = []
 
     def parseData(self, dataStart=int(), labelsRow = int(), path = str()):
-        self.path = path()
+        self.path = path
         dataFile = open(self.path, "r")
         self.pathsToFiles.append(self.path)
         self.xArray = []
@@ -63,13 +30,13 @@ class processData:
                 XLabel = str(xLabelText + " [" + self.labelsArray[0] + "]")
                 YLabel = str(yLabelText + " [" + self.labelsArray[1] + "]")
                 labelArray = [XLabel, YLabel]
-        return (labelArray)
+                return (labelArray)
 
     def returnData(self):
         dataArray = [self.xArray, self.yArray]
         return(dataArray)
 
-    def pathsToFiles(self):
+    def returnPathsToFiles(self):
         return (self.pathsToFiles)
 
 class graphComposer:
@@ -84,16 +51,15 @@ class graphComposer:
         self.labelsArray = labelsArray
         self.title = title
 
-    def composeGraph(self):
+    def composeGraph(self, pathsArray):
+        self.pathsArray = pathsArray
         plt.xlabel(self.labelsArray[0])
         plt.ylabel(self.labelsArray[1])
         plt.title(self.title)
 
-        pathsArray = data.pathsToFiles()
-
         i = int(0)
         j = int(0)
-        while(i < len(generalArray)):
+        while(i < len(self.generalArray)):
             dataArray = self.generalArray[i]
             xArray = dataArray[j]
             yArray = dataArray[j + 1]
@@ -102,12 +68,13 @@ class graphComposer:
             plt.plot(xArray, yArray, label = ("Source: " + name))
             i += 1
 
-    def showGraph():
+    def showGraph(self):
         plt.legend()
         plt.show()
 
 
 def main():
+    paths = ["/home/melimat/Documents/CO2/Dostalova_Havlikova.txt", "/home/melimat/Documents/CO2/Kopriva_Jedlicka.txt", "/home/melimat/Documents/CO2/Idinova_Placha_Listikova.txt", "/home/melimat/Documents/CO2/Melichna_Heller.txt"]
 
     data = processData("\t")
     g = graphComposer()
@@ -121,7 +88,8 @@ def main():
             labelsArray = data.labels("Time", "CO2 Concentration")
             g.addText("Garph of concentration of CO2", labelsArray)
             firstOpened = False
-    g.composeGraph()
+    pathsArray = data.returnPathsToFiles()
+    g.composeGraph(pathsArray)
     g.showGraph()
 
-plotResults()
+main()
