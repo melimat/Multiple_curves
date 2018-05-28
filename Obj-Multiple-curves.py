@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
+import os
+import fnmatch
 
+from Tkinter import *
+import Tkinter, Tkconstants, tkFileDialog
 
 class processData:
     def __init__(self, splitter):
@@ -73,23 +77,71 @@ class graphComposer:
         plt.show()
 
 
-def main():
-    paths = ["/home/melimat/Documents/CO2/Dostalova_Havlikova.txt", "/home/melimat/Documents/CO2/Kopriva_Jedlicka.txt", "/home/melimat/Documents/CO2/Idinova_Placha_Listikova.txt", "/home/melimat/Documents/CO2/Melichna_Heller.txt"]
+def window():
+	root = Tk()
 
-    data = processData("\t")
-    g = graphComposer()
+	inputLabel = Label(root, text = "Path to input directory", height = 4)
+	inputPath = Entry(root)
+	#outputLabel = Label(root, text = "Path to output directory", height = 4)
+	#outputPath = Entry(root, height = 4)
+	titleLabel = Label(root, text = "Title for graph", height = 4)
+	graphTitle = Entry(root)
+	XLabelLabel = Label(root, text = "X axis label", height = 4)
+	XLabel = Entry(root)
+	YLabelLabel = Label(root, text = "Y axis label", height = 4)
+	YLabel = Entry(root)
 
-    firstOpened = bool(True)
-    for eachElement in paths:
-        data.parseData(8, 6, eachElement)
-        dataArray = data.returnData()
-        g.addCurve(dataArray)
-        if (firstOpened == True):
-            labelsArray = data.labels("Time", "CO2 Concentration")
-            g.addText("Garph of concentration of CO2", labelsArray)
-            firstOpened = False
-    pathsArray = data.returnPathsToFiles()
-    g.composeGraph(pathsArray)
-    g.showGraph()
+	inputLabel.grid(row = 0, column = 0)
+	titleLabel.grid(row = 1, column = 0)
+	XLabelLabel.grid(row = 2, column = 0)
+	YLabelLabel.grid(row = 3, column = 0)
 
-main()
+	inputPath.grid(row = 0, column = 1)
+	graphTitle.grid(row = 1, column = 1)
+	XLabel.grid(row = 2, column = 1)
+	YLabel.grid(row = 3, column = 1)
+
+	def filePick():
+		root.dirPath = tkFileDialog.askdirectory(initialdir="/",title="Select directory")
+		inputPath.insert(10, root.dirPath)
+
+	entryButton = Button(root, text = "...", command = filePick)
+	entryButton.grid(row = 0, column = 2)
+
+	def getValues():
+		inpPath = inputPath.get()
+		title = graphTitle.get()
+		XLbl = XLabel.get()
+		YLbl = YLabel.get()
+		root.destroy()
+		main(inpPath, title, XLbl, YLbl)
+
+	OKButton = Button(root, text = "Generate graph", command = getValues)
+	OKButton.grid(row = 4, column = 1)
+
+	root.mainloop()
+
+def main(inputPath, Title, XLabel, YLabel):
+
+	paths = []
+	for file in os.listdir(inputPath):
+		if fnmatch.fnmatch(file, '*.txt'):
+			paths.append(inputPath + "/" + file)
+
+	data = processData("\t")
+	g = graphComposer()
+
+	firstOpened = bool(True)
+	for eachElement in paths:
+		data.parseData(8, 6, eachElement)
+		dataArray = data.returnData()
+		g.addCurve(dataArray)
+		if (firstOpened == True):
+			labelsArray = data.labels(XLabel, YLabel)
+			g.addText(Title, labelsArray)
+			firstOpened = False
+	pathsArray = data.returnPathsToFiles()
+	g.composeGraph(pathsArray)
+	g.showGraph()
+
+window()
