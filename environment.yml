@@ -1,0 +1,5 @@
+name: Multiple
+dependencies:
+  - matplotlib=2.2.2
+  - python>=2.7
+  - tk
