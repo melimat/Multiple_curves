@@ -9,7 +9,7 @@ class csvFile:
 
     def open(self, path):
         csvFile = open(path, "w")
-        return(csvFile)
+        return (csvFile)
 
     def writeRow(self, csvFile, rowText=str(), splitter=str()):
         writer = csv.writer(csvFile)
@@ -24,11 +24,10 @@ class txtFile:
 
     def open(self, path):
         txtFile = open(path, "r")
-        return(txtFile)
+        return (txtFile)
 
 
 def parse():
-
     splitter = "\t"
     unitLine = 6
     dataStartLine = 8
