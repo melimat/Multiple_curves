@@ -5,4 +5,6 @@ It was originally created for visualizing data from Vernier DAQ system, but it c
 </p>
 <p>
 I developed this tool on virtual machine running linux (Ubuntu 16.4), but it can run on every operating system. Only requirements are installed Python (developed on 2.7 version) and Matplotlib library
+<br>
+See the Wiki of this project for more info
 </p>
