@@ -16,9 +16,6 @@ def getInput():
     return(pathsToFiles)
 
 
-#pathsToFiles.append("/home/melimat/Downloads/Tusla-Slama.txt")
-#pathsToFiles.append("/home/melimat/Downloads/Trefny.txt")
-
 labelText = "Graph of oncentration of CO2"
 xLabelText = "Time"
 yLabelText = "Concentration of CO2"
@@ -63,6 +60,6 @@ def plotData():
     plt.legend()
     plt.show()
 
-getInput()
+pathsToFiles = getInput()
 plotData()
 #readData(pathsToFiles)
