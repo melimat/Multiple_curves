@@ -1,7 +1,6 @@
 import random
-#dataFile = str(input("Here type (paste) path to your txt file for generating: "))
-dataFile = "/home/melimat/Documents/gen.txt"
-#splitter = str(input("What is your splitting symbol?: "))
+
+dataFile = str(input("Here type (paste) path to your txt file for generating: "))
 splitter = "\t"
 dataStart = int(input("On which line you want your data to start?: "))
 labelLine = int(input("On which line you want your units?: "))
@@ -15,7 +14,7 @@ i = int(0)
 a = int(0)
 b = int(0)
 
-while(i < maxLines):
+while (i < maxLines):
     i += 1
     if (i >= dataStart):
         genFile.write(str(a) + splitter + str(b) + "\n")

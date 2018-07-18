@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import csv
 
-inPath = str("/home/melimat/Downloads/Trefny.txt")
-outPath = str("/home/melimat/Downloads/myCsv.csv")
+inPath = str(input("Path to input txt file?: "))
+outPath = str(input("Path to output csv file?: "))
 
 
 class csvFile:
