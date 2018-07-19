@@ -7,18 +7,17 @@ from Tkinter import *
 import Tkinter, Tkconstants, tkFileDialog
 
 
-class processData:
+class ProcessData:
     def __init__(self, splitter):
         self.splitter = splitter
         self.pathsToFiles = []
 
     def parseData(self, dataStart=int(), labelsRow=int(), path=str()):
-        self.path = path
-        dataFile = open(self.path, "r")
-        self.pathsToFiles.append(self.path)
         self.xArray = []
         self.yArray = []
         self.labelsArray = []
+        self.pathsToFiles.append(path)
+        dataFile = open(path, "r")
         lineNumber = int(0)
         for eachLine in dataFile:
             lineNumber += 1
@@ -27,8 +26,14 @@ class processData:
                 self.labelsArray.append(lineArray[0])
                 self.labelsArray.append(lineArray[1])
             elif (lineNumber >= dataStart):
-                self.xArray.append(lineArray[0])
-                self.yArray.append(lineArray[1])
+                if (float(lineArray[0]) - int(lineArray[0] == 0)):
+                    self.xArray.append(int(lineArray[0]))
+                else:
+                    self.xArray.append(float(lineArray[0]))
+                if (float(lineArray[1]) - int(lineArray[1] == 0)):
+                    self.yArray.append(int(lineArray[1]))
+                else:
+                    self.yArray.append(float(lineArray[1]))
         dataFile.close()
 
     def labels(self, xLabelText=str(), yLabelText=str()):
@@ -84,8 +89,6 @@ def window():
 
     inputLabel = Label(root, text="Path to input directory", height=4)
     inputPath = Entry(root)
-    # outputLabel = Label(root, text = "Path to output directory", height = 4)
-    # outputPath = Entry(root, height = 4)
     titleLabel = Label(root, text="Title for graph", height=4)
     graphTitle = Entry(root)
     XLabelLabel = Label(root, text="X axis label", height=4)
@@ -130,7 +133,7 @@ def main(inputPath, Title, XLabel, YLabel):
         if fnmatch.fnmatch(file, '*.txt'):
             paths.append(inputPath + "/" + file)
 
-    data = processData("\t")
+    data = ProcessData("\t")
     g = graphComposer()
 
     firstOpened = bool(True)
