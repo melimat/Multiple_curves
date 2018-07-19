@@ -26,14 +26,8 @@ class ProcessData:
                 self.labelsArray.append(lineArray[0])
                 self.labelsArray.append(lineArray[1])
             elif (lineNumber >= dataStart):
-                if (float(lineArray[0]) - int(lineArray[0] == 0)):
-                    self.xArray.append(int(lineArray[0]))
-                else:
-                    self.xArray.append(float(lineArray[0]))
-                if (float(lineArray[1]) - int(lineArray[1] == 0)):
-                    self.yArray.append(int(lineArray[1]))
-                else:
-                    self.yArray.append(float(lineArray[1]))
+                self.xArray.append(float(lineArray[0]))
+                self.yArray.append(float(lineArray[1]))
         dataFile.close()
 
     def labels(self, xLabelText=str(), yLabelText=str()):
